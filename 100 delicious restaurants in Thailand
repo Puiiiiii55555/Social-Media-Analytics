@@ -9,7 +9,6 @@ CREATE TABLE Restaurants (
 );
 
 INSERT INTO Restaurants (name,city, country, ranking, cuisine) VALUES
-
     (Sorn, Bangkok, Thailand, 1, Thai),
     (Gaggan Anand, Bangkok, Thailand, 2, Progressive Indian),
     (Le Du, Bangkok, Thailand, 3, Thai),
