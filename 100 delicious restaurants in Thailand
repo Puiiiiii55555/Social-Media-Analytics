@@ -1,0 +1,29 @@
+CREATE TABLE Restaurants (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    city VARCHAR(100),
+    country VARCHAR(100),
+    ranking INT,
+    cuisine VARCHAR(100)
+);
+
+INSERT INTO Restaurants (name,city, country, ranking, cuisine) VALUES
+    ('Baan Tepa', 'Bangkok', 'Thailand', 1, 'Thai'),
+    ('Côte By Mauro Colagreco', 'Bangkok', 'Thailand', 2, 'Italian'),
+    ('Sorn', 'Bangkok', 'Thailand', 3, 'Thai'),
+    ('Sühring', 'Bangkok', 'Thailand', 4, 'German'),
+    ('Samrub Samrub Thai', 'Bangkok', 'Thailand', 5, 'Thai'),
+    ('Haawm', 'Bangkok', 'Thailand', 6, 'Thai'),
+    ('Clara', 'Bangkok', 'Thailand', 7, 'Italian'),
+    ('Acqua', 'Bangkok', 'Thailand', 8, 'Italian'),
+    ('JIM THOMPSON, A THAI RESTAURANT', 'Bangkok', 'Thailand', 14, 'Thai'),
+    ('Mia', 'Bangkok', 'Thailand', 20, 'European'),
+    ('Maison Dunand', 'Bangkok', 'Thailand', 22, 'French'),
+    ('Le Normandie By Alain Roux', 'Bangkok', 'Thailand', 26, 'French'),
+    ('ERR URBAN RUSTIC THAI','Bangkok', 'Thailand', 28, 'Thai'),
+    -- Add more restaurants here...
+    ('Restaurant Z', '789 Oak St', 'Phuket', 'Thailand', 100, 'Thai');
+
+SELECT * FROM Restaurants WHERE country = 'Thailand' ORDER BY ranking ASC LIMIT 100;
+
