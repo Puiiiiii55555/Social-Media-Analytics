@@ -1,1 +1,56 @@
+-- Create table for departments
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(50)
+);
+
+-- Create table for employees
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100),
+    department_id INT,
+    salary DECIMAL(10, 2),
+    hire_date DATE,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+
+-- Insert sample departments
+INSERT INTO departments (department_id, department_name)
+VALUES 
+    (1, 'Sales'),
+    (2, 'Marketing'),
+    (3, 'Finance');
+
+-- Insert sample employees
+INSERT INTO employees (employee_id, employee_name, department_id, salary, hire_date)
+VALUES
+    (1, 'John Doe', 1, 50000.00, '2020-01-15'),
+    (2, 'Jane Smith', 2, 60000.00, '2019-05-20'),
+    (3, 'Bob Johnson', 1, 55000.00, '2021-03-10'),
+    (4, 'Alice Williams', 3, 70000.00, '2018-11-30');
+
+-- Query to retrieve all employees
+SELECT * FROM employees;
+
+-- Query to retrieve employees in a specific department
+SELECT * FROM employees WHERE department_id = 1;
+
+-- Query to retrieve employees hired after a certain date
+SELECT * FROM employees WHERE hire_date > '2020-01-01';
+
+-- Query to calculate total salary expense by department
+SELECT d.department_name, SUM(e.salary) AS total_salary
+FROM departments d
+JOIN employees e ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+-- Query to retrieve the highest paid employee in each department
+SELECT d.department_name, e.employee_name, e.salary
+FROM departments d
+JOIN employees e ON d.department_id = e.department_id
+WHERE (e.department_id, e.salary) IN (
+    SELECT department_id, MAX(salary)
+    FROM employees
+    GROUP BY department_id
+);
 
