@@ -1,1 +1,67 @@
+-- Create tables
+
+CREATE TABLE Authors (
+    AuthorID INT PRIMARY KEY,
+    AuthorName VARCHAR(100)
+);
+
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    AuthorID INT,
+    Genre VARCHAR(50),
+    ISBN VARCHAR(20),
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);
+
+CREATE TABLE Borrowers (
+    BorrowerID INT PRIMARY KEY,
+    BorrowerName VARCHAR(100),
+    Address VARCHAR(255),
+    PhoneNumber VARCHAR(15)
+);
+
+CREATE TABLE Loans (
+    LoanID INT PRIMARY KEY,
+    BookID INT,
+    BorrowerID INT,
+    LoanDate DATE,
+    DueDate DATE,
+    ReturnDate DATE,
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (BorrowerID) REFERENCES Borrowers(BorrowerID)
+);
+
+-- Insert data into tables
+
+INSERT INTO Authors (AuthorID, AuthorName) VALUES
+(1, 'J.K. Rowling'),
+(2, 'George Orwell'),
+(3, 'Harper Lee');
+
+INSERT INTO Books (BookID, Title, AuthorID, Genre, ISBN) VALUES
+(1, 'Harry Potter and the Sorcerer''s Stone', 1, 'Fantasy', '9780590353427'),
+(2, '1984', 2, 'Dystopian', '9780451524935'),
+(3, 'To Kill a Mockingbird', 3, 'Classic', '9780061120084');
+
+INSERT INTO Borrowers (BorrowerID, BorrowerName, Address, PhoneNumber) VALUES
+(1, 'Alice Johnson', '123 Main St, Anytown', '555-1234'),
+(2, 'Bob Smith', '456 Oak St, Othertown', '555-5678'),
+(3, 'Charlie Brown', '789 Elm St, Anothertown', '555-9012');
+
+-- Example loan records
+
+INSERT INTO Loans (LoanID, BookID, BorrowerID, LoanDate, DueDate, ReturnDate) VALUES
+(1, 1, 1, '2024-03-01', '2024-03-15', NULL),
+(2, 2, 2, '2024-02-15', '2024-03-01', NULL),
+(3, 3, 3, '2024-02-29', '2024-03-14', '2024-03-08');
+
+-- Query to retrieve books borrowed by a specific borrower
+
+SELECT Books.Title, Authors.AuthorName, Borrowers.BorrowerName, Loans.LoanDate, Loans.DueDate, Loans.ReturnDate
+FROM Loans
+JOIN Books ON Loans.BookID = Books.BookID
+JOIN Authors ON Books.AuthorID = Authors.AuthorID
+JOIN Borrowers ON Loans.BorrowerID = Borrowers.BorrowerID
+WHERE Borrowers.BorrowerName = 'Alice Johnson';
 
